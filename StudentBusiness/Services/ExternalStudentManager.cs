@@ -8,11 +8,28 @@ public class ExternalStudentManager : IExternalStudentService
     {
         _httpClientFactory = httpClientFactory;        
     }
+
+    public async Task<List<ExternalStudentDto>?> GetAllExternalStudentDto()
+    {
+        var client = _httpClientFactory.CreateClient();
+        var url = $"https://jsonplaceholder.typicode.com/users";
+        try
+        {
+            var userList = await client.GetFromJsonAsync<List<ExternalStudentDto>>(url);
+            return userList;            
+        }
+        catch (System.Exception)
+        {      
+            // atayı yukarı fırlatıyoruz           
+            throw;
+        }
+    }
+
     public async Task<ExternalStudentDto?> GetExternalStudentDtoByIdAsync(int id)
     {
         var client =_httpClientFactory.CreateClient();
         //örnek bir dış api adresi
-        var url = $"https://jsonplaceholder.typicode.com/users{id}";
+        var url = $"https://jsonplaceholder.typicode.com/users/{id}";
         try
         {
             var rawUser = await client.GetFromJsonAsync<JsonPlaceholderUser>(url);
@@ -23,7 +40,7 @@ public class ExternalStudentManager : IExternalStudentService
                     id = rawUser.Id,
                     Name = rawUser.Name,
                     Email = rawUser.Email,
-                    City = rawUser.Address.City
+                    Address = rawUser.Address
                 };
                 
             }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using StudentCore.DTOs;
 using StudentCore.Interfaces;
@@ -34,6 +35,19 @@ public class StudentController : ControllerBase
         }
 
         return Ok(student);
+    }
+
+    [HttpGet("GetAllExternal")]
+    public async Task<IActionResult> GetAllExternalStudents()
+    {
+        var results = await _externalStudentService.GetAllExternalStudentDto();
+        if(results == null)
+        {
+            return BadRequest("Kullanıcılar yüklenemedi");
+        }
+
+        return Ok(results);
+        
     }
 
 }
