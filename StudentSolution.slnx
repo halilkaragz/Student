@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="StudentApi/StudentApi.csproj" />
+  <Project Path="StudentBusiness/StudentBusiness.csproj" />
+  <Project Path="StudentCore/StudentCore.csproj" />
+  <Project Path="StudentDataAccess/StudentDataAccess.csproj" />
+</Solution>
